@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+    <link rel="stylesheet" href="/styles/products.css">
+</head>
+<body>
+    <header>
+        <h1>Productos</h1>
+    </header>
+    <main>
+        <% if (products.length) { %>
+            <div class="product-grid">
+                <% products.forEach(product => { %>
+                    <div class="product-card">
+                        <!-- <img src="<%= product.image %>" alt="<%= product.name %>"> -->
+                        <h2><%= product.name %></h2>
+                        <p><%= product.description %></p>
+                        <p class="price">$<%= Number(product.price).toFixed(2) %></p>
+                        <% if (product.discount) { %>
+                            <p class="discount">Descuento: <%= (product.discount * 100).toFixed(0) %>%</p>
+                        <% } %>
+                        <button class="add-to-cart">Añadir al carrito</button>
+                    </div>
+                <% }); %>
+            </div>
+        <% } else { %>
+            <p>No hay productos disponibles.</p>
+        <% } %>
+    </main>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registro</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Estilos del formulario */
+        form {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input[type="email"],
+        input[type="text"],
+        input[type="password"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        input[type="email"]:focus,
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        /* Estilos responsivos */
+        @media (max-width: 600px) {
+            form {
+                padding: 20px;
+            }
+
+            input[type="email"],
+            input[type="text"],
+            input[type="password"] {
+                width: calc(100% - 10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Registro</h1>
+    <form action="/register" method="POST">
+        <input type="email" name="email" placeholder="Email" value="usuario@dominio.com" required>
+        <input type="text" name="username" placeholder="Username" value="patata" required>
+        <input type="password" name="password" placeholder="Password" value="123456" required>
+        <button type="submit">Registrar</button>
+    </form>
+
+    <script>
+        // Código JavaScript
+        const formRegister = document.querySelector('form');
+
+        formRegister.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const response = await fetch('/auth/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: formRegister.email.value,
+                    username: formRegister.username.value,
+                    password: formRegister.password.value
+                }),
+            });
+
+            if (response.ok) {
+                alert('Usuario registrado correctamente');
+                window.location.href = '/auth/login';
+            } else {
+                alert('Error al registrar el usuario');
+            }
+        });
+    </script>
+</body>
+</html>

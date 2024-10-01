@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo Producto</title>
+    <link rel="stylesheet" href="/styles/new-product.css">
+</head>
+<body>
+    <header>
+        <h1>Agregar Nuevo Producto</h1>
+    </header>
+    <main>
+        <form action="/products" method="POST" class="product-form">
+            <div class="form-group">
+                <label for="name">Nombre del Producto</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Descripción</label>
+                <textarea id="description" name="description" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="price">Precio</label>
+                <input type="number" id="price" name="price" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="stock">Stock</label>
+                <input type="number" id="stock" name="stock" required>
+            </div>
+            <div class="form-group">
+                <label for="discount">Descuento</label>
+                <input type="number" id="discount" name="discount" step="0.01">
+            </div>
+            <div class="form-group">
+                <label for="image">URL de la Imagen</label>
+                <input type="url" id="image" name="image">
+            </div>
+            <button type="submit" class="submit-button">Agregar Producto</button>
+        </form>
+    </main>
+</body>
+</html>
