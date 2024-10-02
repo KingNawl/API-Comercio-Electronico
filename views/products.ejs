@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Productos</title>
     <link rel="stylesheet" href="/styles/products.css">
+    <link rel="stylesheet" href="/styles/navbar.css">
 </head>
 <body>
     <header>
-        <h1>Productos</h1>
+        <%- include('partials/navbar') %>
     </header>
     <main>
         <% if (products.length) { %>
@@ -18,9 +19,12 @@
                         <!-- <img src="<%= product.image %>" alt="<%= product.name %>"> -->
                         <h2><%= product.name %></h2>
                         <p><%= product.description %></p>
-                        <p class="price">$<%= Number(product.price).toFixed(2) %></p>
-                        <% if (product.discount) { %>
+                        <% if (product.discount && product.discount != 0) { %>
+                            <p class="price" style="text-decoration: line-through;">$<%= Number(product.price).toFixed(2) %></p>
                             <p class="discount">Descuento: <%= (product.discount * 100).toFixed(0) %>%</p>
+                            <p class="price">$<%= Number(product.price - (product.price * product.discount)).toFixed(2) %></p>
+                        <% } else { %>
+                            <p class="price">$<%= Number(product.price).toFixed(2) %></p>
                         <% } %>
                         <button class="add-to-cart">Añadir al carrito</button>
                     </div>

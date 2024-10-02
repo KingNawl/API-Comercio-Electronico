@@ -57,6 +57,8 @@ router.get('/:id', async (req, res) => {
 router.post('/new', async (req, res) => {
     const { name, description, price, stock, discount, disabled } = req.body;
 
+    console.log(name, description, price, stock, discount, disabled);
+
     let connection;
     let query;
     try {

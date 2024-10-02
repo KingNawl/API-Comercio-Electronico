@@ -37,6 +37,10 @@ app.get('/protected', (req, res) => {
 })
 
 app.use('/auth', authRoutes);
-app.use('/products', productsRoutes);
+app.use('/products', (req, res, next) => {
+    const { user } = req.session;
+    if (!user) return res.status(401).send('Unauthorized');
+    next();
+}, productsRoutes);
 
 export default app;
