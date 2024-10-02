@@ -143,5 +143,41 @@ router.put('/:id', async (req, res) => {
     }
 })
 
+router.delete('/:id', async (req, res) => {
+    const { id } = req.params;
+
+    let connection;
+    let query;
+    try {
+        Validators.validateId(id);
+
+        connection = await pool.getConnection();
+        connection.beginTransaction();
+
+        //Comprobar si existe el producto
+        query = 'SELECT * FROM products WHERE id = ?';
+        const [rows] = await connection.query(query, [id]);
+
+        if (!rows.length) {
+            return res.status(404).json({ message: 'Producto no encontrado' });
+        }
+
+        //Eliminar el producto
+        query = 'DELETE FROM products WHERE id = ?';
+        const [result] = await connection.query(query, [id]);
+
+        connection.commit();
+
+        res.status(200).json({
+            message: 'Producto eliminado correctamente'
+        })
+    } catch (error) {
+        if(connection) connection.rollback();
+        res.status(500).json({ message: error.message });
+    } finally {
+        if(connection) connection.release();
+    }
+})
+
 
 export default router;
