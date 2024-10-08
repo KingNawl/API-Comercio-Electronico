@@ -2,19 +2,26 @@ import express from 'express';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
 import authRoutes from './routes/auth.routes.js';
 import productsRoutes from './routes/products.routes.js';
 import authenticateToken from './middleware/authenticateToken.js';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
 
 // Configuración de la carpeta public
-app.use(express.static(path.join(process.cwd(), 'public')));
+app.use(express.static('public'));
+
+app.use('/bootstrap', express.static(path.join(__dirname, 'node_modules/bootstrap/dist')));
 
 
 // Motor de plantillas ejs
 app.set('view engine', 'ejs');
+app.set('views', './views');
 
 // Middleware
 app.use(morgan('dev'));
@@ -23,17 +30,27 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(authenticateToken);
 
+app.use((req, res, next) => {
+
+    //Añadimos la ruta actual a res.locals para poder usarla en las vistas
+    res.locals.currentRoute = req.path;
+
+    //Añadimos el usuario a res.locals para poder usarlo en las vistas
+    if (req.session.user) {
+        res.locals.user = req.session.user;
+    }
+    next();
+});
+
 // Routes
 app.get('/', (req, res) => {
-    const { user } = req.session;
-    res.render('index', { user });
+    res.render('index');
 });
 
 app.get('/protected', (req, res) => {
     const { user } = req.session;
-    console.log(user)
     if (!user) return res.status(401).send('Unauthorized');
-    res.status(200).render('protected', { user });
+    res.status(200).render('protected');
 })
 
 app.use('/auth', authRoutes);

@@ -7,6 +7,9 @@ nav {
     width: 100%;
     z-index: 1000; /* Asegúrate de que el navbar esté por encima de otros elementos */
     /* height: 60px; /* Define una altura para el navbar */ 
+    color: white;
+    display: flex;
+    flex-direction: column;
 }
 
 nav ul {
@@ -35,4 +38,7 @@ nav ul li a:hover {
 
 body {
     padding-top: 60px; /* Ajusta este valor según la altura de tu navbar */
+}
+nav div {
+    text-transform: capitalize;
 }

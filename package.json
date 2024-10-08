@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "copy-bootstrap": "copyfiles -f node_modules/bootstrap/dist/**/* public/bootstrap"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
   "homepage": "https://github.com/KingNawl/API-Comercio-Electronico#readme",
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "bootstrap": "^5.3.3",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
@@ -29,6 +31,7 @@
     "mysql2": "^3.11.2"
   },
   "devDependencies": {
+    "copyfiles": "^2.4.1",
     "nodemon": "^3.1.4"
   }
 }

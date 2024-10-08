@@ -33,6 +33,23 @@ router.get('/new', (req, res) => {
     res.status(200).render('new-product');
 })
 
+router.get('/gestor', async (req, res) => {
+    try {
+        const connect = await pool.getConnection();
+
+        const [rows] = await connect.query('SELECT * FROM products');
+        if (!rows.length) return res.status(404).render('products',{ message: 'No hay productos disponibles' });
+
+        console.log(rows);
+        
+
+        res.status(200).render('gestor', { products: rows });
+
+    } catch (error) {
+        res.status(500).json({ message: error.message, products: [] });
+    }
+})
+
 router.get('/:id', async (req, res) => {
     const { id } = req.params;
 

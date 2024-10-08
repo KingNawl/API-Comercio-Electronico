@@ -1,9 +1,27 @@
-<!-- views/partials/navbar.twig -->
-<nav>
-    <ul>
-        <li><a href="/">Inicio</a></li>
-        <li><a href="/products">Productos</a></li>
-        <li><a href="/products/new">Nuevo Producto</a></li>
-        <!-- Agrega más enlaces según sea necesario -->
-    </ul>
+<!-- views/partials/navbar.ejs -->
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">E-Commerce API</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link <%= currentRoute === '/' ? 'active' : '' %>" aria-current="page" href="/">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <%= currentRoute === '/products' ? 'active' : '' %>" href="/products">Productos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <%= currentRoute === '/products/new' ? 'active' : '' %>" href="/products/new">Nuevo Producto</a>
+                </li>
+            </ul>
+            <% if (user) { %>
+                <div class="user-info">
+                    <span class="text-capitalize"><%= user.username %></span>
+                </div>
+            <% } %>
+        </div>
+    </div>
 </nav>
