@@ -36,9 +36,12 @@ app.use((req, res, next) => {
     res.locals.currentRoute = req.path;
 
     //Añadimos el usuario a res.locals para poder usarlo en las vistas
-    if (req.session.user) {
+/*     if (req.session.user) {
         res.locals.user = req.session.user;
-    }
+    }else{
+        res.locals.user = null;
+    } */
+    res.locals.user = req.session.user ? req.session.user : null;
     next();
 });
 
