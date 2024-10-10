@@ -9,19 +9,41 @@ const router = Router();
  * Obtener todos los productos
  */
 router.get('/', async (req, res) => {
+    let connect;
     try {
-        const connect = await pool.getConnection();
+        connect = await pool.getConnection();
 
-        const [rows] = await connect.query('SELECT * FROM products');
-        if (!rows.length) return res.status(404).render('products',{ message: 'No hay productos disponibles' });
+        const page = parseInt(req.query.page) || 1;
+        const limit = 10;
 
-        console.log(rows);
+        const offset = (page - 1) * limit;
+
+        console.log(page, limit, offset);
+
+        const [rows] = await connect.query('SELECT * FROM products LIMIT ? OFFSET ?', [limit, offset]);
+        if (!rows.length) return res.status(404).render('products',{ message: 'No hay productos disponibles', products: [] });
         
+        //Obtener el total de productos
+        const [rowsTotal] = await connect.query('SELECT COUNT(*) as total FROM products');
+        const total = rowsTotal[0].total;
+        
+        //Redondeamos hacia arriba para obtener el total de páginas correctamente
+        const totalPages = Math.ceil(total / limit); 
 
-        res.status(200).render('products', { products: rows });
+        res.status(200).render('products', { 
+            products: rows,
+            pagination: {
+                currentPage: page,
+                pageSize: limit,
+                totalProducts: total,
+                totalPages: totalPages
+            }
+        });
 
     } catch (error) {
         res.status(500).json({ message: error.message, products: [] });
+    }finally{
+        if(connect) connect.release();
     }
 })
 
@@ -34,8 +56,9 @@ router.get('/new', (req, res) => {
 })
 
 router.get('/gestor', async (req, res) => {
+    let connect;
     try {
-        const connect = await pool.getConnection();
+        connect = await pool.getConnection();
 
         const [rows] = await connect.query('SELECT * FROM products');
         if (!rows.length) return res.status(404).render('products',{ message: 'No hay productos disponibles' });
@@ -47,16 +70,19 @@ router.get('/gestor', async (req, res) => {
 
     } catch (error) {
         res.status(500).json({ message: error.message, products: [] });
+    }finally {
+        if(connect) connect.release();
     }
 })
 
 router.get('/:id', async (req, res) => {
     const { id } = req.params;
 
-    Validators.validateId(id);
-
+    
+    let connect;
     try {
-        const connect = await pool.getConnection();
+        Validators.validateId(id);
+        connect = await pool.getConnection();
 
         const [rows] = await connect.query('SELECT * FROM products WHERE id = ?', [id]);
         if (!rows.length) return res.status(404).render('products', { message: 'Producto no encontrado', products: [] });
@@ -64,6 +90,8 @@ router.get('/:id', async (req, res) => {
         res.status(200).render('products', { products: rows });
     }catch (error) {
         res.status(500).render('products', { message: error.message, products: [] });
+    }finally{
+        if(connect) connect.release();
     }
 })
 
@@ -108,6 +136,8 @@ router.post('/new', async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message });
         
+    }finally{
+        if(connection) connection.release();
     }
 })
 

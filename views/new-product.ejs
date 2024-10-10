@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nuevo Producto</title>
-    <link rel="stylesheet" href="/styles/new-product.css">
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
 </head>
 
@@ -14,36 +13,43 @@
         <%- include('partials/navbar') %>
     </header>
     <main>
-        <div class="div-form">
-            <h1>Agregar Nuevo Producto</h1>
-            <form action="/products" method="POST" class="product-form">
-                <div class="form-group">
-                    <label for="name">Nombre del Producto</label>
-                    <input type="text" id="name" name="name" required>
+        <div class="container mt-5">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="mb-0 p-2">Agregar Nuevo Producto</h1>
                 </div>
-                <div class="form-group">
-                    <label for="description">Descripción</label>
-                    <textarea id="description" name="description" required></textarea>
+                <div class="card-body">
+                    <form action="/products" method="POST" class="product-form">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nombre del Producto</label>
+                            <input type="text" id="name" name="name" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Descripción</label>
+                            <textarea id="description" name="description" class="form-control" rows="3" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="price" class="form-label">Precio</label>
+                            <input type="number" id="price" name="price" class="form-control" step="0.01" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="stock" class="form-label">Stock</label>
+                            <input type="number" id="stock" name="stock" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="discount" class="form-label">Descuento</label>
+                            <input type="number" id="discount" name="discount" class="form-control" step="0.10" max="1">
+                        </div>
+                        <div class="form-check mb-3">
+                            <input type="checkbox" id="disabled" name="disabled" class="form-check-input">
+                            <label for="disabled" class="form-check-label">Disabled</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Agregar Producto</button>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label for="price">Precio</label>
-                    <input type="number" id="price" name="price" step="0.50" required>
-                </div>
-                <div class="form-group">
-                    <label for="stock">Stock</label>
-                    <input type="number" id="stock" name="stock" required>
-                </div>
-                <div class="form-group">
-                    <label for="discount">Descuento</label>
-                    <input type="number" id="discount" name="discount" step="0.10" max="1">
-                </div>
-                <div class="form-group">
-                    <label for="disabled">Disabled</label>
-                    <input type="checkbox" id="disabled" name="disabled">
-                </div>
-                <button type="submit" class="submit-button">Agregar Producto</button>
-            </form>
+            </div>
         </div>
+    </main>
         <script>
             const form = document.querySelector('.product-form');
             form.addEventListener('submit', async (event) => {
