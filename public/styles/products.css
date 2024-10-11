@@ -13,69 +13,19 @@ main {
     padding: 2rem;
 }
 
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 2rem;
-}
-
-.product-card {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: transform 0.2s;
-}
-
-/* .product-card:hover {
-    transform: scale(1.05);
-} */
-
-.product-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.product-card h2 {
-    font-size: 1.5rem;
-    margin: 0.5rem;
+.product-card h5 {
+    color: #ffffff; 
 }
 
 .product-card p {
-    margin: 0.5rem;
-}
-
-.price {
-    font-size: 1.2rem;
-    color: #333;
-}
-
-.discount {
-    font-size: 1rem;
-    color: #e74c3c;
-}
-
-.add-to-cart {
-    display: block;
-    width: calc(100% - 1rem);
-    margin: 0.5rem;
-    padding: 0.5rem;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.add-to-cart:hover {
-    background-color: #0056b3;
+    color: #cbc5bf;
 }
 
 /* Estilos boton para volver arriba */
 #btn-back-to-top {
+    background-color: #6f42c1;
+    border-color: #6f42c1;
+    box-shadow: 0 0 10px rgba(111, 66, 193, 0.5); /* Sombra para la página activa */
     position: fixed; /* Fijar el botón en la pantalla */
     bottom: 20px; /* Posición desde la parte inferior */
     right: 20px; /* Posición desde la parte derecha */

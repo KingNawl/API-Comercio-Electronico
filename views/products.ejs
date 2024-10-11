@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Productos</title>
   <link rel="stylesheet" href="/styles/products.css" />
+  <link rel="stylesheet" href="/styles/navbar.css" />
   <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
   <link rel="stylesheet" href="/bootstrap-icons/font/bootstrap-icons.css" />
 </head>
@@ -67,25 +68,29 @@
               <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Sin imagen" preserveAspectRatio="xMidYMid slice" focusable="false">
                 <title>No imagen</title>
                 <rect width="100%" height="100%" fill="#868e96"></rect>
-                <text class="user-select-none" x="50%" y="50%" fill="#dee2e6" dy=".3em" text-anchor="middle" dominant-baseline="middle">
+                <text class="user-select-none" x="50%" y="50%" fill="#ecf0f3" dy=".3em" text-anchor="middle" dominant-baseline="middle">
                   Sin imagen
                 </text>
               </svg>
               <% } %>
-              <div class="card-body">
+              <div class="card-body product-card bg-light-subtle">
                 <h5 class="card-title"><%= product.name %></h5>
-                <p class="card-text"><%= product.description %></p>
-                <strong>Precio: </strong>
+                <p class="card-text">
+                  <% if (product.description.length > 40) { %>
+                   <%= product.description.substring(0, 40) + "..." %>
+                  <% }else { %>
+                    <%= product.description %>
+                  <% } %>
+                </p>
                 <% if (product.discount && product.discount != 0) { %>
                 <span class="text-danger text-decoration-line-through"><%= Number(product.price).toFixed(2) %>€</span>
                 <span class="fw-bold text-success"><%= Number(product.price - (product.price *
                     product.discount)).toFixed(2) %>€</span>
                 <div class="mt-2">
-                  <span class="badge bg-success">Oferta: <%= Number(product.discount * 100).toFixed(0)
-                      %>%</span>
+                  <span class="badge bg-success">Oferta: <%= Number(product.discount * 100).toFixed(0) %>%</span>
                 </div>
                 <% } else { %>
-                <span><%= Number(product.price).toFixed(2) %>€</span>
+                <span><strong><%= Number(product.price).toFixed(2) %>€</strong></span>
                 <% } %>
               </div>
             </div>
