@@ -8,7 +8,8 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "copy-bootstrap": "copyfiles -f node_modules/bootstrap/dist/**/* public/bootstrap"
+    "copy-bootstrap": "copyfiles -f node_modules/bootstrap/dist/**/* public/bootstrap",
+    "copy-icons": "copyfiles -f node_modules/bootstrap-icons/font/**/* public/bootstrap-icons/font"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,7 @@
   "dependencies": {
     "bcrypt": "^5.1.1",
     "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",

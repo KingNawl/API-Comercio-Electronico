@@ -17,6 +17,7 @@ const app = express();
 app.use(express.static('public'));
 
 app.use('/bootstrap', express.static(path.join(__dirname, 'node_modules/bootstrap/dist')));
+app.use('/bootstrap-icons/font', express.static(path.join(__dirname, 'node_modules/bootstrap-icons/font')));
 
 
 // Motor de plantillas ejs

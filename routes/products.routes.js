@@ -28,9 +28,11 @@ router.get('/', async (req, res) => {
         const total = rowsTotal[0].total;
         
         //Redondeamos hacia arriba para obtener el total de páginas correctamente
-        const totalPages = Math.ceil(total / limit); 
+        const totalPages = Math.ceil(total / limit);
 
-        res.status(200).render('products', { 
+        //Filtros
+
+        res.status(200).render('products', {
             products: rows,
             pagination: {
                 currentPage: page,

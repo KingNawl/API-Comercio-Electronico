@@ -7,6 +7,7 @@
   <title>Productos</title>
   <link rel="stylesheet" href="/styles/products.css" />
   <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/bootstrap-icons/font/bootstrap-icons.css" />
 </head>
 
 <body>
@@ -15,55 +16,98 @@
     <% if (products.length) { %>
     <div class="container">
       <div class="row">
-        <% products.forEach(product => { %>
-        <div class="col-md-3">
-          <div class="card mb-4">
-            <% if (product.image) { %>
-            <img src="<%= product.image %>" class="bd-placeholder-img card-img-top" alt="<%= product.name %>" />
-            <% } else { %>
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Sin imagen" preserveAspectRatio="xMidYMid slice" focusable="false">
-                <title>No imagen</title>
-              <rect width="100%" height="100%" fill="#868e96"></rect>
-              <text class="user-select-none" x="50%" y="50%" fill="#dee2e6" dy=".3em" text-anchor="middle" dominant-baseline="middle">
-                Sin imagen
-              </text>
-            </svg>
-            <% } %>
-            <div class="card-body">
-              <h5 class="card-title"><%= product.name %></h5>
-              <p class="card-text"><%= product.description %></p>
-              <strong>Precio: </strong>
-              <% if (product.discount && product.discount != 0) { %>
-              <span class="text-danger text-decoration-line-through"><%= Number(product.price).toFixed(2) %>€</span>
-              <span class="fw-bold text-success"><%= Number(product.price - (product.price *
-                  product.discount)).toFixed(2) %>€</span>
-              <div class="mt-2">
-                <span class="badge bg-success">Oferta: <%= Number(product.discount * 100).toFixed(0)
-                    %>%</span>
-              </div>
+        <div id="filter-container" class="col-md-3 bg-body-tertiary">
+          <h3 class="mt-2 mb-2 text-center">Filtrar</h3>
+          <form action="/products" method="GET">
+            <div class="mb-3">
+              <label for="search" class="form-label">Buscar</label>
+              <input type="text" class="form-control" id="search" name="search" />
+            </div>
+            <div class="mb-3">
+              <label for="price" class="form-label">Precio</label>
+              <select class="form-select" id="price" name="price">
+                <option value="">Todos</option>
+                <option value="0-10">0€ - 10€</option>
+                <option value="10-20">10€ - 20€</option>
+                <option value="20-30">20€ - 30€</option>
+                <option value="30-40">30€ - 40€</option>
+                <option value="40-50">40€ - 50€</option>
+                <option value="50-60">50€ - 60€</option>
+                <option value="60-70">60€ - 70€</option>
+                <option value="70-80">70€ - 80€</option>
+                <option value="80-90">80€ - 90€</option>
+                <option value="90-100">90€ - 100€</option>
+                <option value="100-">100€</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="discount" class="form-label">Descuento</label>
+              <select class="form-select" id="discount" name="discount">
+                <option value="">Todos</option>
+                <option value="0-10">0% - 10%</option>
+                <option value="10-20">10% - 20%</option>
+                <option value="20-30">20% - 30%</option>
+                <option value="30-40">30% - 40%</option>
+                <option value="40-50">40% - 50%</option>
+                <option value="50-60">50% - 60%</option>
+                <option value="60-70">60% - 70%</option>
+                <option value="70-80">70% - 80%</option>
+                <option value="80-90">80% - 90%</option>
+                <option value="90-100">90% - 100%</option>
+              </select>
+            </div>
+        </div>
+        <div id="products-container" class="row col-md-9">
+          <% products.forEach(product => { %>
+          <div class="col-md-3">
+            <div class="card mb-4">
+              <% if (product.image) { %>
+              <img src="<%= product.image %>" class="bd-placeholder-img card-img-top" alt="<%= product.name %>" />
               <% } else { %>
-              <span><%= Number(product.price).toFixed(2) %>€</span>
+              <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Sin imagen" preserveAspectRatio="xMidYMid slice" focusable="false">
+                <title>No imagen</title>
+                <rect width="100%" height="100%" fill="#868e96"></rect>
+                <text class="user-select-none" x="50%" y="50%" fill="#dee2e6" dy=".3em" text-anchor="middle" dominant-baseline="middle">
+                  Sin imagen
+                </text>
+              </svg>
               <% } %>
+              <div class="card-body">
+                <h5 class="card-title"><%= product.name %></h5>
+                <p class="card-text"><%= product.description %></p>
+                <strong>Precio: </strong>
+                <% if (product.discount && product.discount != 0) { %>
+                <span class="text-danger text-decoration-line-through"><%= Number(product.price).toFixed(2) %>€</span>
+                <span class="fw-bold text-success"><%= Number(product.price - (product.price *
+                    product.discount)).toFixed(2) %>€</span>
+                <div class="mt-2">
+                  <span class="badge bg-success">Oferta: <%= Number(product.discount * 100).toFixed(0)
+                      %>%</span>
+                </div>
+                <% } else { %>
+                <span><%= Number(product.price).toFixed(2) %>€</span>
+                <% } %>
+              </div>
             </div>
           </div>
+          <% }) %>
         </div>
-        <% }) %>
-      </div>
-      <div class="d-flex justify-content-center">
-        <nav aria-label="Page navigation example">
-          <ul class="pagination">
-            <% if(products.length){ %>
+        <div class="col-md-3"></div>
+        <div class="d-flex justify-content-center col-md-9">
+          <nav aria-label="Navegador de paginas">
+            <ul class="pagination">
+              <% if(products.length){ %>
               <li class="page-item <%= pagination.currentPage === 1 ? 'disabled' : '' %>">
                 <a class="page-link" href="/products?page=<%= pagination.currentPage - 1 %>" aria-label="Previous">
                   <span aria-hidden="true">&laquo;</span>
                 </a>
               </li>
               <% for (let index = 1; index <= pagination.totalPages; index++) { %>
-                <% const active = pagination.currentPage === index ? 'active' : ''; %>
-                
-                <li class="page-item <%= active %>">
-                  <a class="page-link" href="/products?page=<%= index %>"><%= index %></a>
-                </li>
+              <% const active = pagination.currentPage === index ? 'active' : ''; %>
+
+              <li class="page-item <%= active %>">
+                <a class="page-link" href="/products?page=<%= index %>"><%= index %></a>
+              </li>
 
               <% } %>
               <li class="page-item <%= pagination.currentPage === pagination.totalPages ? 'disabled' : '' %>">
@@ -71,20 +115,53 @@
                   <span aria-hidden="true">&raquo;</span>
                 </a>
               </li>
-            <% } %>
-            <!--             <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li> -->
-          </ul>
-        </nav>
+              <% } %>
+              <!--             <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item"><a class="page-link" href="#">Next</a></li> -->
+            </ul>
+          </nav>
+        </div>
       </div>
     </div>
     <% } else { %>
     <p>No hay productos disponibles.</p>
     <% } %>
   </main>
+  <!-- Botón para volver hacia arriba -->
+  <button type="button" class="btn btn-secondary btn-lg rounded-circle d-none" id="btn-back-to-top">
+    <i class="bi bi-arrow-bar-up"></i>
+  </button>
+
+  <script>
+    // Obtener el botón
+    let mybutton = document.getElementById("btn-back-to-top");
+
+    // Cuando el usuario hace scroll hacia abajo 20px desde la parte superior del documento, muestra el botón
+    window.onscroll = function() {
+      scrollFunction();
+    };
+
+    function scrollFunction() {
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        mybutton.classList.add("d-flex"); // Mostrar el botón
+        mybutton.classList.remove("d-none"); // Mostrar el botón
+      } else {
+        mybutton.classList.add("d-none"); // Ocultar el botón
+        mybutton.classList.remove("d-flex"); // Ocultar el botón
+      }
+    }
+
+    // Cuando el usuario hace clic en el botón, vuelve hacia arriba
+    mybutton.addEventListener("click", backToTop);
+
+    function backToTop() {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }
+  </script>
   <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 

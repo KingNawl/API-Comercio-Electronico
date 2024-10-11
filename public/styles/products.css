@@ -73,3 +73,73 @@ main {
 .add-to-cart:hover {
     background-color: #0056b3;
 }
+
+/* Estilos boton para volver arriba */
+#btn-back-to-top {
+    position: fixed; /* Fijar el botón en la pantalla */
+    bottom: 20px; /* Posición desde la parte inferior */
+    right: 20px; /* Posición desde la parte derecha */
+    z-index: 99; /* Asegurarse de que el botón esté por encima de otros elementos */
+    width: 50px; /* Ancho del botón */
+    height: 50px; /* Altura del botón */
+    border-radius: 50%; /* Hacer el botón circular */
+    color: white; /* Color del icono */
+    border: none; /* Sin borde */
+    display: flex; /* Usar flexbox para centrar el contenido */
+    align-items: center; /* Centrar verticalmente */
+    justify-content: center; /* Centrar horizontalmente */
+    font-size: 24px; /* Tamaño del icono */
+    cursor: pointer; /* Cambiar el cursor al pasar sobre el botón */
+    padding: 0; /* Eliminar cualquier padding */
+}
+
+#btn-back-to-top i {
+    margin: 0; /* Eliminar cualquier margen del icono */
+    line-height: 1; /* Asegurarse de que el icono no tenga altura de línea adicional */
+    font-size: 24px; /* Tamaño del icono */
+}
+
+/* Estilos de paginación */
+.pagination {
+    justify-content: center; /* Centrar la paginación */
+    margin-top: 1rem;        /* Espacio superior */
+}
+
+.pagination .page-item {
+    margin: 0 0.25rem; /* Espacio entre los elementos de paginación */
+}
+
+.pagination .page-link {
+    background-color: #343a40; /* Fondo oscuro */
+    color: #adb5bd;           /* Texto gris claro */
+    border: 1px solid #495057; /* Borde gris oscuro */
+    transition: all 0.3s ease; /* Transición suave */
+    border-radius: 0.25rem;    /* Bordes redondeados */
+    padding: 0.5rem 0.75rem;   /* Padding para hacer los botones más grandes */
+    display: flex;             /* Usar flexbox para centrar el contenido */
+    align-items: center;       /* Centrar verticalmente */
+    justify-content: center;   /* Centrar horizontalmente */
+}
+
+.pagination .page-link:hover {
+    background-color: #495057; /* Fondo gris oscuro al hacer hover */
+    color: #ffffff;            /* Texto blanco al hacer hover */
+    border-color: #495057;     /* Borde gris oscuro */
+    text-decoration: none;     /* Eliminar subrayado */
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #6f42c1; /* Fondo de la página activa (morado Bootstrap) */
+    border-color: #6f42c1;     /* Borde de la página activa */
+    color: #ffffff;            /* Texto blanco */
+    box-shadow: 0 0 10px rgba(111, 66, 193, 0.5); /* Sombra para la página activa */
+}
+
+.pagination .page-link:focus {
+    box-shadow: 0 0 0 0.25rem rgba(111, 66, 193, 0.25); /* Sombra morada clara */
+}
+
+.pagination .page-item:first-child .page-link,
+.pagination .page-item:last-child .page-link {
+    border-radius: 0.25rem; /* Bordes redondeados para el primer y último elemento */
+}
